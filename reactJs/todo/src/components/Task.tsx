@@ -10,7 +10,6 @@ interface taskProps extends Itask {
 
 function Task(dataProps: taskProps) {
   const [data, setData] = useState<Itask>(dataProps);
-  //const [value, setValue] = useState(dataProps.value);
   const [popUp, setPopUp] = useState<"visible" | "invisible">("invisible");
   function handleChange() {
     setData((prev) => {
@@ -25,12 +24,12 @@ function Task(dataProps: taskProps) {
   }
   return (
     <div className="w-[200px]">
-      <div className="flex flex-row m-3 justify-between">
+      <div className="flex flex-row m-3 justify-between ">
         <p
           className={`${
             data.state == "completed" ? "line-through" : ""
           } mr-4 font-sans`}
-          
+
         >
           {data.value}
         </p>

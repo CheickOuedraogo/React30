@@ -7,11 +7,22 @@ function App() {
   const [lastId, setLastId] = useState(0);
   const [input, setInput] = useState("");
   const [tasks, setTask] = useState<Itask[]>([]);
+  const [deleteTask,setDeleteTask] = useState<Itask[]>([])
   
-  function deleteTask(id: number) {
+  function fndeleteTask(id: number) {
+
+    const newDelete = tasks.find(task => task.id === id)
+    if(newDelete)
+      setDeleteTask(prev => ([...prev,newDelete]))
     const newTask = tasks.filter((task) => task.id !== id);
     setTask(newTask);
   }
+    function fndeleteDefTask(id: number) {
+      const newDelete = deleteTask.find((task) => task.id === id);
+      if (newDelete) setDeleteTask((prev) => [...prev, newDelete]);
+      const newTask = deleteTask.filter((task) => task.id !== id);
+      setDeleteTask(newTask);
+    }
 
   function addTask() {
     setTask((prev) => [
@@ -46,9 +57,23 @@ function App() {
             value={task.value}
             state="pending"
             key={task.id}
-            delete={deleteTask}
+            delete={fndeleteTask}
           />
         ))}
+      </div>
+      <div>
+        <button>Delete History</button>
+        <div>
+          {deleteTask.map((task) => (
+            <Task
+              id={task.id}
+              value={task.value}
+              state="pending"
+              key={task.id}
+              delete={fndeleteDefTask}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
